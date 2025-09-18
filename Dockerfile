@@ -15,12 +15,15 @@ RUN apk add --no-cache \
     && docker-php-ext-install pdo pdo_mysql zip gd intl opcache \
     && rm -rf /var/cache/apk/*
 
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 COPY . /var/www/html
 
 RUN composer install --no-dev --optimize-autoloader
 
-RUN chown -R www-data:www-data /var/www/html/storage \
-    && chown -R www-data:www-data /var/www/html/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+
+USER www-data
 
 EXPOSE 9000
 CMD ["php-fpm"]
