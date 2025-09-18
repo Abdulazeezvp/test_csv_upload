@@ -42,6 +42,7 @@ class SaveDataHelper{
                 ]
             ]);
             if(!$validator->fails()){
+                // eloquent will do hashing
                 User::insertOrIgnore($data);
             }else{
                 $response = $validator->validate();
