@@ -1,4 +1,4 @@
-FROM php:8.2-fpm-alpine # Or a suitable PHP-FPM image
+FROM php:8.2-fpm-alpine
 WORKDIR /var/www/html
 
 RUN apk add --no-cache \
